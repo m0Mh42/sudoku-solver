@@ -6,7 +6,8 @@ Script reads the first 81 numbers of the tablefile (9*9) and tries to solve the 
 
 Usage:
 ```shell
-sudoku.out [tablefile]```
+sudoku.out [tablefile]
+```
 
 It's really simple tho, it's not gonna do much complicated stuff. I haven't written the **Table Creator** tho (yet).
 
