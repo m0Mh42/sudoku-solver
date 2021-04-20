@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 void PrintRed();
 void PrintGreen();
@@ -8,7 +9,7 @@ void PrintGreen();
 void OpenTable(int numTable[9][9], char *filename){
     char buff[82];
     FILE *file;
-    PrintGreen("Opening \'%s\' table...\n", filename);
+    PrintGreen("Opening table...\n");
     file = fopen(filename, "rb");
     int i = 0;
     while (i < 81){
@@ -16,22 +17,15 @@ void OpenTable(int numTable[9][9], char *filename){
         i++;
     }
     buff[81] = '\0';
-    int n, m, l, valid = 0, j = 0;
-    char numlist[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    int n, m, j = 0;
     for (n = 0; n < 9; ++n){
         for (m = 0; m < 9; ++m){
-            valid = 0;
-            for (l = 0; l < 10; ++l){
-                if (buff[j] == numlist[l]){
-                    numTable[n][m] = buff[j] - '0';
-                    valid = 1;
-                    j++;
-                    break;
-                }
-            }
-            if (valid == 0){
-                PrintRed("The table file is not a valid table: %s", filename);
-                exit(0);
+            if (isdigit(buff[j])){
+                numTable[n][m] = buff[j] - '0';
+                j++;
+            } else {
+                PrintRed("Invalid table.\n");
+                exit(1);
             }
         }
     }
